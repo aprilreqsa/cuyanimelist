@@ -7,7 +7,7 @@ const AnimeList = ({api}) => {
         <div className="grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 gap-4 px-4">
             {api.data?.map((anime,index) => {
              return (
-            <Anime key={index} id={anime.mal_id} title={anime.title} images={anime.images.webp.image_url}/>
+            <Anime key={index} id={anime.mal_id} title={anime.title} images={anime.images.webp?.image_url}/>
               )
         
              })}
