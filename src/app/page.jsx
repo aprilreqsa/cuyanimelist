@@ -1,21 +1,11 @@
 import AnimeList from "./components/AnimeList";
 import Header from "./components/Header";
-import { getAnimeResponse, getNestedAnimeResponse } from "../libs/libs-api";
-import _ from "underscore";
+import { getAnimeResponse, getNestedAnimeResponse, reproduce } from "../libs/libs-api";
 
 const Home = async () => {
   const topAnimes =  await getAnimeResponse("top/anime","limit=8")
-  let reccomendation =  await getNestedAnimeResponse("recommendations/anime")
-  let randomArray = []
-  const randomAnime = () => {
-    for(let i=0; i<4;i++){
-      randomArray.push(reccomendation[Math.floor(Math.random()*reccomendation.length)])
-    }
-  }
-  randomAnime()
-  reccomendation = {
-    data: randomArray
-  }
+  let reccomendation =  await getNestedAnimeResponse("recommendations/anime","entry")
+  reccomendation = reproduce(reccomendation,7)
   return (
     <div>
        <div>

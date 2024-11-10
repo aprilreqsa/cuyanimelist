@@ -10,7 +10,7 @@ const InputSearch = () => {
     const handleSearch = (e) => {
         e.preventDefault()
         const keyword = searchRef.current.value
-        if(keyword === ""){
+        if(keyword.trim() === ""){
             return 
         }
         if( e.key === "Enter" || e.type === "click"){
