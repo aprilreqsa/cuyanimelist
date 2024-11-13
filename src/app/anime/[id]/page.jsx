@@ -4,6 +4,8 @@ import Image from "next/image";
 import CollectionButton from "@/app/components/Utilities/CollectionButton";
 import { authUserSession } from "@/libs/auth-libs";
 import prisma from "@/libs/prisma";
+import CommentInput from "@/app/components/Utilities/CommentInput";
+import CommentBox from "@/app/components/Utilities/CommentBox";
 
 const Page = async ({params: {id}}) => {
     const data = await getAnimeResponse(`anime/${id}`)
@@ -18,7 +20,7 @@ const Page = async ({params: {id}}) => {
         <div>
             <div className="p-4">
                 <h3 className="text-color-primary text-2xl">{anime.title} - {anime.year}</h3>
-                {!collection && user && <CollectionButton user_email={user?.email} anime_mal_id={id} />}
+                {!collection && user && <CollectionButton anime_image={anime.images.webp.image_url} anime_title={anime.title} user_email={user?.email} anime_mal_id={id} />}
                 
             </div>
             <div>
@@ -50,6 +52,15 @@ const Page = async ({params: {id}}) => {
                 className="w-full rounded object-cover"
                 />
                 <p className="text-justify text-xl">{anime.synopsis}</p>
+            </div>
+            <div className="p-4">
+                {user && 
+                <CommentInput anime_mal_id={id} user_name={user?.name} user_email={user?.email} anime_title={anime.title}/>
+                }
+            </div>
+            <div>
+                <h3 className="text-color-primary text-2xl mb-2">Komentar Penonton</h3>
+                <CommentBox anime_mal_id={id} />
             </div>
             <div>
                 <VideoPlayer youtubeId={anime.trailer.youtube_id} />
